@@ -1,0 +1,58 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>магаз</title>
+    <style>
+        /* Ваш стиль CSS может быть добавлен здесь */
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Магаз</h1>
+        <!-- Дополнительные элементы заголовка, такие как меню навигации, могут быть добавлены здесь -->
+    </header>
+
+    <main>
+        <section id="products">
+            <!-- Здесь будут отображаться ваши товары -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
+
+    <script>
+        // Функция для загрузки товаров с сервера и отображения на странице
+        function loadProducts() {
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(products => {
+                    const productsContainer = document.getElementById('products');
+                    productsContainer.innerHTML = '';
+
+                    products.forEach(product => {
+                        const productElement = document.createElement('div');
+                        productElement.innerHTML = `
+                            <h3>${product.name}</h3>
+                            <p>Ціна: $${product.price}</p>
+                        `;
+                        productsContainer.appendChild(productElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Вызываем функцию для загрузки товаров при загрузке страницы
+        window.onload = loadProducts;
+    </script>
+
+</body>
+</html>
